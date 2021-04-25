@@ -277,6 +277,15 @@ public: // IBootstrapperApplication
         return S_OK;
     }
 
+    virtual STDMETHODIMP OnPlanMsiTransaction(
+        __in_z LPCWSTR /*wzTransactionId*/,
+        __in BOOL /*fTransaction*/,
+        __out BOOL* /*pfTransaction*/
+        )
+    {
+        return S_OK;
+    }
+
     virtual STDMETHODIMP OnPlanMsiFeature(
         __in_z LPCWSTR /*wzPackageId*/,
         __in_z LPCWSTR /*wzFeatureId*/,

@@ -189,6 +189,15 @@ static HRESULT BalBaseBAProcOnPlanPatchTarget(
     return pBA->OnPlanPatchTarget(pArgs->wzPackageId, pArgs->wzProductCode, pArgs->recommendedState, &pResults->requestedState, &pResults->fCancel);
 }
 
+static HRESULT BalBaseBAProcOnPlanMsiTransaction(
+    __in IBootstrapperApplication* pBA,
+    __in BA_ONPLANMSITRANSACTION_ARGS* pArgs,
+    __inout BA_ONPLANMSITRANSACTION_RESULTS* pResults
+    )
+{
+    return pBA->OnPlanMsiTransaction(pArgs->wzTransactionId, pArgs->fTransaction, &pResults->fTransaction);
+}
+
 static HRESULT BalBaseBAProcOnPlanMsiFeature(
     __in IBootstrapperApplication* pBA,
     __in BA_ONPLANMSIFEATURE_ARGS* pArgs,
