@@ -340,6 +340,21 @@ namespace WixToolset.Mba.Core
             );
 
         /// <summary>
+        /// See <see cref="IDefaultBootstrapperApplication.PlanMsiTransaction"/>.
+        /// </summary>
+        /// <param name="wzTransactionId"></param>
+        /// <param name="fTransaction"></param>
+        /// <param name="pfTransaction"></param>
+        /// <returns></returns>
+        [PreserveSig]
+        [return: MarshalAs(UnmanagedType.I4)]
+        int OnPlanMsiTransaction(
+            [MarshalAs(UnmanagedType.LPWStr)] string wzTransactionId,
+            [MarshalAs(UnmanagedType.Bool)] bool fTransaction,
+            [MarshalAs(UnmanagedType.Bool)] ref bool pfTransaction
+            );
+
+        /// <summary>
         /// See <see cref="IDefaultBootstrapperApplication.PlanMsiFeature"/>.
         /// </summary>
         /// <param name="wzPackageId"></param>

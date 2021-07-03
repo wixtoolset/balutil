@@ -304,6 +304,11 @@ namespace WixToolset.Mba.Core
         event EventHandler<PlanPackageCompleteEventArgs> PlanPackageComplete;
 
         /// <summary>
+        /// Fired when the engine has plans an MSI transaction.
+        /// </summary>
+        event EventHandler<PlanMsiTransactionEventArgs> PlanMsiTransaction;
+
+        /// <summary>
         /// Fired when the engine is about to plan a target of an MSP package.
         /// </summary>
         event EventHandler<PlanPatchTargetEventArgs> PlanPatchTarget;

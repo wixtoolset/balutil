@@ -782,6 +782,36 @@ namespace WixToolset.Mba.Core
     }
 
     /// <summary>
+    /// Additional arguments used when the engine has plans an MSI transaction.
+    /// </summary>
+    [Serializable]
+    public class PlanMsiTransactionEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Creates a new instance of the <see cref="PlanMsiTransactionEventArgs"/> class.
+        /// </summary>
+        /// <param name="transactionId">The identity of the transaction to plan for.</param>
+        /// <param name="fTransaction">Whether or not an MSI transaction can be used in the rollback boundary.</param>
+        public PlanMsiTransactionEventArgs(string transactionId, bool fTransaction)
+        {
+            this.TransactionId = transactionId;
+            this.Transaction = fTransaction;
+        }
+
+        /// <summary>
+        /// Gets the identity of the transaction to plan for.
+        /// </summary>
+        public string TransactionId { get; private set; }
+
+        /// <summary>
+        /// Whether or not an MSI transaction will be used in the rollback boundary.
+        /// When false on entry, then an MSI tranaction is either not authored or not supported on the target machine. In this case, setting the value to true has no effect.
+        /// When true on entry, setting to false will disable the transaction and packages will be installed without a wrapping MSI transaction.
+        /// </summary>
+        public bool Transaction { get; set; }
+    }
+
+    /// <summary>
     /// Event arguments for <see cref="IDefaultBootstrapperApplication.PlanPatchTarget"/>
     /// </summary>
     [Serializable]

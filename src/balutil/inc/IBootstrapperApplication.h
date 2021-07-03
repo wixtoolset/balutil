@@ -184,6 +184,13 @@ DECLARE_INTERFACE_IID_(IBootstrapperApplication, IUnknown, "53C31D56-49C0-426B-A
         __inout BOOL* pfCancel
         ) = 0;
 
+    // OnPlanMsiTransaction - called when the engine plans an MSI transaction.
+    STDMETHOD(OnPlanMsiTransaction)(
+        __in_z LPCWSTR wzTransactionId,
+        __in BOOL fTransaction,
+        __out BOOL* pfTransaction
+        ) = 0;
+
     // OnPlanMsiFeature - called when the engine plans a feature in an
     //                    MSI package.
     STDMETHOD(OnPlanMsiFeature)(

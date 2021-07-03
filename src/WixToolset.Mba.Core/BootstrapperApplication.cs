@@ -89,6 +89,9 @@ namespace WixToolset.Mba.Core
         public event EventHandler<PlanPackageBeginEventArgs> PlanPackageBegin;
 
         /// <inheritdoc/>
+        public event EventHandler<PlanMsiTransactionEventArgs> PlanMsiTransaction;
+
+        /// <inheritdoc/>
         public event EventHandler<PlanPatchTargetEventArgs> PlanPatchTarget;
 
         /// <inheritdoc/>
@@ -516,6 +519,19 @@ namespace WixToolset.Mba.Core
         protected virtual void OnPlanPatchTarget(PlanPatchTargetEventArgs args)
         {
             EventHandler<PlanPatchTargetEventArgs> handler = this.PlanPatchTarget;
+            if (null != handler)
+            {
+                handler(this, args);
+            }
+        }
+
+        /// <summary>
+        /// Called by the engine, raises the <see cref="PlanMsiTransaction"/> event.
+        /// </summary>
+        /// <param name="args">Additional arguments for this event.</param>
+        protected virtual void OnPlanMsiTransaction(PlanMsiTransactionEventArgs args)
+        {
+            EventHandler<PlanMsiTransactionEventArgs> handler = this.PlanMsiTransaction;
             if (null != handler)
             {
                 handler(this, args);
@@ -1396,6 +1412,15 @@ namespace WixToolset.Mba.Core
             pRequestedState = args.State;
             fCancel = args.Cancel;
             return args.HResult;
+        }
+
+        int IBootstrapperApplication.OnPlanMsiTransaction(string wzPackageId, bool fTransaction, ref bool pfTransaction)
+        {
+            PlanMsiTransactionEventArgs args = new PlanMsiTransactionEventArgs(wzPackageId, fTransaction);
+            this.OnPlanMsiTransaction(args);
+
+            pfTransaction = args.Transaction;
+            return 0;
         }
 
         int IBootstrapperApplication.OnPlanMsiFeature(string wzPackageId, string wzFeatureId, FeatureState recommendedState, ref FeatureState pRequestedState, ref bool fCancel)
